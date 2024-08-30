@@ -1,10 +1,10 @@
-SRC = src/libft/ft_strcmp.c src/libft/ft_strlen.c src/libft/ft_substring.c src/libft/ft_substr.c src/libft/ft_split.c src/libft/ft_strcpy.c src/libft/ft_strncpy.c src/libft/ft_strcat.c src/libft/ft_strdup.c src/main.c src/libft/ft_strncmp.c  parse/Sprintf.c src/exec.c
+SRC = src/utils.c src/libft/ft_strlen.c src/libft/ft_substr.c src/libft/ft_split.c src/libft/ft_strdup.c src/main.c src/libft/ft_strncmp.c  src/ft_sprintf.c src/exec.c
 
 NAME = minishell
 OBJ = $(SRC:.c=.o)
 CC = cc
 RM = rm -rf
-CFLAGS =  -Wall -Wextra -Werror
+CFLAGS = -lreadline
 
 Reset = \033[0m
 G = \033[32m

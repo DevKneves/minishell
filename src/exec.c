@@ -83,10 +83,9 @@ char *findPath(char *cmd, char **env) {
 }
 char **parseArguments(char *input)
 {
-    char **args
-    int i = 0;
-    char *token
+    char **args;
     int i;
+    char *token = ft_strtok(input, " ");
 
     if (!args)
     {
@@ -95,7 +94,6 @@ char **parseArguments(char *input)
     }
     i = 0;
     args = (char **)malloc(256 * sizeof(char *));
-    token = ft_strtok(input, " ");
     while (token != NULL && i < 255)
     {
         args[i] = ft_strdup(token);

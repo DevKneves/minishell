@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+#include <stdarg.h>
 #include "../src/libft/libft.h"
 
 #ifndef MINISHELL_H
@@ -17,7 +20,7 @@ typedef struct Node
 } Node;
 
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-static size_t	ft_substring(const char *s, char c);
+//static size_t	ft_substring(const char *s, char c);
 int ft_strcmp(const char *s1, const char *s2);
 char	**ft_split(const char *s, char c);
 int ft_strncmp(const char *s1, const char *s2, size_t n);

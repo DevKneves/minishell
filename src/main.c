@@ -27,6 +27,5 @@ int main(int argc, char **argv, char **envp)
         // Libera a memória alocada pela readline
         free(input);
     }
-
     return 0;
 }
