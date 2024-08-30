@@ -9,6 +9,78 @@
 #include <fcntl.h>
 #include <stdarg.h>
 
+size_t ft_strlen(const char *str);
+char *ft_strdup(const char *str);
+
+char	*ft_substr(const char *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	i;
+
+	i = 0;
+	if (s == 0)
+		return (0);
+	if (start >= ft_strlen(s) || len == 0)
+		return (ft_strdup(""));
+	substr = (char *)malloc((len + 1) * sizeof(char));
+	if (substr == NULL)
+		return (NULL);
+	while (s[start + i] != '\0' && i < len)
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	substr[i] = '\0';
+	return (substr);
+}
+
+static size_t	ft_substring(const char *s, char c)
+{
+	size_t	substring;
+
+	substring = 0;
+	while (*s != '\0')
+	{
+		if (*s != c)
+		{
+			++substring;
+			while (*s != '\0' && *s != c)
+				++s;
+		}
+		else
+			++s;
+	}
+	return (substring);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	char	**substring;
+	size_t	i;
+	size_t	len;
+
+	if (!s)
+		return (0);
+	i = 0;
+	substring = malloc(sizeof(char *) * (ft_substring(s, c) + 1));
+	if (!substring)
+		return (0);
+	while (*s)
+	{
+		if (*s != c)
+		{
+			len = 0;
+			while (*s != '\0' && *s != c && ++len)
+				++s;
+			substring[i++] = ft_substr(s - len, 0, len);
+		}
+		else
+			++s;
+	}
+	substring[i] = 0;
+	return (substring);
+}
+
 // Implementação da função ft_strcmp
 int ft_strcmp(const char *s1, const char *s2) {
     unsigned char *p1 = (unsigned char *)s1;
@@ -247,7 +319,7 @@ char **parseArguments(char *input) {
 }
 
 // Função para executar comandos com múltiplos pipes
-void executeCommand(char *command, char **envp) {
+void executeCommand(char *command, char **argv, char **envp) {
     char *tokens[256];
     int num_tokens = 0;
     char *token = ft_strtok(command, "|");
@@ -287,7 +359,7 @@ void executeCommand(char *command, char **envp) {
             char *path = findPath(ft_strtok(tokens[i], " "), envp);
             if (path) {
                 char **args = parseArguments(tokens[i]);
-                execvp(path, args); // Usar execvp para passar argumentos
+                execve(path, argv, args); // Usar execvp para passar argumentos
                 perror("execvp");
                 free(path);
                 exit(1);
@@ -319,6 +391,7 @@ void executeCommand(char *command, char **envp) {
 // Função principal
 int main(int argc, char **argv, char **envp) {
     char *input;
+    char **splited_input;
 
     while (1) {
         // Lê a entrada do usuário
@@ -335,8 +408,9 @@ int main(int argc, char **argv, char **envp) {
             exit(0);
         }
 
+        splited_input = ft_split(input, ' ');
         // Executa o comando com suporte a múltiplos pipes
-        executeCommand(input, envp);
+        executeCommand(input, splited_input, envp);
 
         // Libera a memória alocada pela readline
         free(input);
