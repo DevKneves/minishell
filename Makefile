@@ -1,4 +1,4 @@
-SRC = src/libft/ft_strcmp.c src/main.c  parse/printEnv.c src/exec.c src/printCommand.c
+SRC = src/libft/ft_strcmp.c src/libft/ft_strlen.c src/libft/ft_substring.c src/libft/ft_substr.c src/libft/ft_split.c src/libft/ft_strcpy.c src/libft/ft_strncpy.c src/libft/ft_strcat.c src/libft/ft_strdup.c src/main.c src/libft/ft_strncmp.c  parse/Sprintf.c src/exec.c
 
 NAME = minishell
 OBJ = $(SRC:.c=.o)

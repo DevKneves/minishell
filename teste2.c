@@ -295,7 +295,8 @@ char *findPath(char *cmd, char **env) {
 }
 
 // Função para dividir uma string em argumentos
-char **parseArguments(char *input) {
+char **parseArguments(char *input)
+{
     char **args = (char **)malloc(256 * sizeof(char *));
     if (!args) {
         perror("malloc");
@@ -319,7 +320,8 @@ char **parseArguments(char *input) {
 }
 
 // Função para executar comandos com múltiplos pipes
-void executeCommand(char *command, char **argv, char **envp) {
+void executeCommand(char *command, char **argv, char **envp)
+{
     char *tokens[256];
     int num_tokens = 0;
     char *token = ft_strtok(command, "|");
@@ -389,7 +391,8 @@ void executeCommand(char *command, char **argv, char **envp) {
 }
 
 // Função principal
-int main(int argc, char **argv, char **envp) {
+int main(int argc, char **argv, char **envp)
+{
     char *input;
     char **splited_input;
 
